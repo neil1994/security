@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ele_cloud.fp5i.security.resource.mapper.SystemMapper" >
+  <resultMap id="BaseResultMap" type="com.ele_cloud.fp5i.security.resource.bean.System" >
+    <id column="pk_system" property="pkSystem" jdbcType="CHAR" />
+    <result column="system_name" property="systemName" jdbcType="VARCHAR" />
+    <result column="system_code" property="systemCode" jdbcType="VARCHAR" />
+    <result column="system_status" property="systemStatus" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="createtor" property="createtor" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_system, system_name, system_code, system_status, create_time, createtor
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ele_cloud.fp5i.security.resource.bean.SystemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from qx_system
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qx_system
+    where pk_system = #{pkSystem,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qx_system
+    where pk_system = #{pkSystem,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ele_cloud.fp5i.security.resource.bean.System" >
+    insert into qx_system (pk_system, system_name, system_code, 
+      system_status, create_time, createtor
+      )
+    values (#{pkSystem,jdbcType=CHAR}, #{systemName,jdbcType=VARCHAR}, #{systemCode,jdbcType=VARCHAR}, 
+      #{systemStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createtor,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ele_cloud.fp5i.security.resource.bean.System" >
+    insert into qx_system
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkSystem != null" >
+        pk_system,
+      </if>
+      <if test="systemName != null" >
+        system_name,
+      </if>
+      <if test="systemCode != null" >
+        system_code,
+      </if>
+      <if test="systemStatus != null" >
+        system_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createtor != null" >
+        createtor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkSystem != null" >
+        #{pkSystem,jdbcType=CHAR},
+      </if>
+      <if test="systemName != null" >
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null" >
+        #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="systemStatus != null" >
+        #{systemStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtor != null" >
+        #{createtor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qx_system
+    <set >
+      <if test="record.pkSystem != null" >
+        pk_system = #{record.pkSystem,jdbcType=CHAR},
+      </if>
+      <if test="record.systemName != null" >
+        system_name = #{record.systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemCode != null" >
+        system_code = #{record.systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemStatus != null" >
+        system_status = #{record.systemStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createtor != null" >
+        createtor = #{record.createtor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qx_system
+    set pk_system = #{record.pkSystem,jdbcType=CHAR},
+      system_name = #{record.systemName,jdbcType=VARCHAR},
+      system_code = #{record.systemCode,jdbcType=VARCHAR},
+      system_status = #{record.systemStatus,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      createtor = #{record.createtor,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ele_cloud.fp5i.security.resource.bean.System" >
+    update qx_system
+    <set >
+      <if test="systemName != null" >
+        system_name = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null" >
+        system_code = #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="systemStatus != null" >
+        system_status = #{systemStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtor != null" >
+        createtor = #{createtor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_system = #{pkSystem,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ele_cloud.fp5i.security.resource.bean.System" >
+    update qx_system
+    set system_name = #{systemName,jdbcType=VARCHAR},
+      system_code = #{systemCode,jdbcType=VARCHAR},
+      system_status = #{systemStatus,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      createtor = #{createtor,jdbcType=VARCHAR}
+    where pk_system = #{pkSystem,jdbcType=CHAR}
+  </update>
+</mapper>

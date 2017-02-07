@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者-->
+    <dubbo:application name="dubbo-security-provider" owner="programmer" organization="dubbox"/>
+
+    <!--注册中心配置，用于配置连接注册中心相关信息。-->
+    <dubbo:registry address="zookeeper://192.168.96.8:2181"/>
+
+
+    <dubbo:protocol name="dubbo" serialization="kryo" optimizer="com.alibaba.dubbo.demo.SerializationOptimizerImpl"/>
+
+    <!-- 协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。use tomcat server -->
+    <dubbo:protocol name="rest" port="8088" threads="500" contextpath="services" server="tomcat" accepts="500"/>
+    <!--http请求端口-->
+    <dubbo:protocol name="http" port="8089"/>
+    <!--hessian 请求端口-->
+    <dubbo:protocol name="hessian" port="8090"/>
+    <!--webservice请求端口-->
+    <dubbo:protocol name="webservice" port="8092"/>
+
+    <!--自动扫描Base包下的注释 -->
+    <dubbo:annotation package="com.ele_cloud.fp5i.security"/>
+
+    <!--日志配置====将访问日志输出到当前应用的log4j日志-->
+    <dubbo:protocol accesslog="true" />
+
+
+</beans>

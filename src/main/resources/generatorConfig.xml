@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="D:\KAIFA\maven\mavenrepository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.96.8:3306/qx" userId="root"
+                        password="root"/>
+
+        <javaModelGenerator targetPackage="com.ele_cloud.fp5i.security.model"
+                            targetProject="D:\KAIFA\Workspaces\IdeaProjects\auth\security\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.ele_cloud.fp5i.security.mybatis"
+                         targetProject="D:\KAIFA\Workspaces\IdeaProjects\auth\security\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.ele_cloud.fp5i.security.mapper"
+                             targetProject="D:\KAIFA\Workspaces\IdeaProjects\auth\security\src\main\java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="T_FEE_AGTBILL" domainObjectName="FeeAgentBill"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>-->
+
+        <table tableName="qx_resource" domainObjectName="Resource"
+               enableCountByExample="false" enableUpdateByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            
+        </table>
+        <table tableName="qx_role" domainObjectName="Role"
+               enableCountByExample="false" enableUpdateByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+
+        </table>
+        <table tableName="qx_role_resource" domainObjectName="RoleResource"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false">
+
+        </table>
+        <table tableName="qx_system" domainObjectName="System"
+               enableCountByExample="false" enableUpdateByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+
+        </table>
+        <table tableName="qx_user_role" domainObjectName="UserRole"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false">
+
+        </table>
+
+    </context>
+</generatorConfiguration>

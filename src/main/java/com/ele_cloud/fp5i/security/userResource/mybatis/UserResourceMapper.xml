@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ele_cloud.fp5i.security.userResource.mapper.UserResourceMapper" >
+    <resultMap id="BaseResultMap" type="com.ele_cloud.fp5i.security.resource.bean.Resource" >
+        <id column="pk_resource" property="pkResource" jdbcType="CHAR" />
+        <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+        <result column="resource_code" property="resourceCode" jdbcType="VARCHAR" />
+        <result column="resource_type" property="resourceType" jdbcType="CHAR" />
+        <result column="resource_status" property="resourceStatus" jdbcType="CHAR" />
+        <result column="resource_url" property="resourceUrl" jdbcType="VARCHAR" />
+        <result column="resource_parent_id" property="resourceParentId" jdbcType="CHAR" />
+        <result column="resource_order" property="resourceOrder" jdbcType="CHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="createtor" property="createtor" jdbcType="VARCHAR" />
+        <result column="system_id" property="systemId" jdbcType="CHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        pk_resource, resource_name, resource_code, resource_type, resource_status, resource_url,
+        resource_parent_id, resource_order, create_time, createtor, system_id
+    </sql>
+    <!--查询用户一级资源-->
+    <select id="selectUserOneLevelResource" parameterType="String" resultMap="BaseResultMap">
+       SELECT
+            qr.pk_resource,
+            qr.resource_name,
+            qr.resource_code,
+            qr.resource_type,
+            qr.resource_status,
+            qr.resource_url,
+            qr.resource_parent_id,
+            qr.resource_order,
+            qr.create_time,
+            qr.createtor,
+            qr.system_id
+        FROM
+            qx_resource qr,
+            qx_role_resource qrr,
+            qx_user_role qur
+        WHERE
+            qr.pk_resource = qrr.resource_id
+        AND qur.role_id = qrr.role_id
+        AND qur.user_id = #{pkUser}
+        AND qr.resource_status = 1
+        AND qr.resource_parent_id =''
+        ORDER BY  qr.resource_code DESC
+    </select>
+
+
+</mapper>

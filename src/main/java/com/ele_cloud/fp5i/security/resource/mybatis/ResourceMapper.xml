@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ele_cloud.fp5i.security.resource.mapper.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.ele_cloud.fp5i.security.resource.bean.Resource" >
+    <id column="pk_resource" property="pkResource" jdbcType="CHAR" />
+    <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    <result column="resource_code" property="resourceCode" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="CHAR" />
+    <result column="resource_status" property="resourceStatus" jdbcType="CHAR" />
+    <result column="resource_url" property="resourceUrl" jdbcType="VARCHAR" />
+    <result column="resource_parent_id" property="resourceParentId" jdbcType="CHAR" />
+    <result column="resource_order" property="resourceOrder" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="createtor" property="createtor" jdbcType="VARCHAR" />
+    <result column="system_id" property="systemId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pk_resource, resource_name, resource_code, resource_type, resource_status, resource_url, 
+    resource_parent_id, resource_order, create_time, createtor, system_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ele_cloud.fp5i.security.resource.bean.ResourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from qx_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from qx_resource
+    where pk_resource = #{pkResource,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qx_resource
+    where pk_resource = #{pkResource,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ele_cloud.fp5i.security.resource.bean.Resource" >
+    insert into qx_resource (pk_resource, resource_name, resource_code, 
+      resource_type, resource_status, resource_url, 
+      resource_parent_id, resource_order, create_time, 
+      createtor, system_id)
+    values (#{pkResource,jdbcType=CHAR}, #{resourceName,jdbcType=VARCHAR}, #{resourceCode,jdbcType=VARCHAR}, 
+      #{resourceType,jdbcType=CHAR}, #{resourceStatus,jdbcType=CHAR}, #{resourceUrl,jdbcType=VARCHAR}, 
+      #{resourceParentId,jdbcType=CHAR}, #{resourceOrder,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createtor,jdbcType=VARCHAR}, #{systemId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ele_cloud.fp5i.security.resource.bean.Resource" >
+    insert into qx_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkResource != null" >
+        pk_resource,
+      </if>
+      <if test="resourceName != null" >
+        resource_name,
+      </if>
+      <if test="resourceCode != null" >
+        resource_code,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+      <if test="resourceStatus != null" >
+        resource_status,
+      </if>
+      <if test="resourceUrl != null" >
+        resource_url,
+      </if>
+      <if test="resourceParentId != null" >
+        resource_parent_id,
+      </if>
+      <if test="resourceOrder != null" >
+        resource_order,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createtor != null" >
+        createtor,
+      </if>
+      <if test="systemId != null" >
+        system_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkResource != null" >
+        #{pkResource,jdbcType=CHAR},
+      </if>
+      <if test="resourceName != null" >
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceCode != null" >
+        #{resourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=CHAR},
+      </if>
+      <if test="resourceStatus != null" >
+        #{resourceStatus,jdbcType=CHAR},
+      </if>
+      <if test="resourceUrl != null" >
+        #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceParentId != null" >
+        #{resourceParentId,jdbcType=CHAR},
+      </if>
+      <if test="resourceOrder != null" >
+        #{resourceOrder,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtor != null" >
+        #{createtor,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null" >
+        #{systemId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qx_resource
+    <set >
+      <if test="record.pkResource != null" >
+        pk_resource = #{record.pkResource,jdbcType=CHAR},
+      </if>
+      <if test="record.resourceName != null" >
+        resource_name = #{record.resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceCode != null" >
+        resource_code = #{record.resourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceType != null" >
+        resource_type = #{record.resourceType,jdbcType=CHAR},
+      </if>
+      <if test="record.resourceStatus != null" >
+        resource_status = #{record.resourceStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.resourceUrl != null" >
+        resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceParentId != null" >
+        resource_parent_id = #{record.resourceParentId,jdbcType=CHAR},
+      </if>
+      <if test="record.resourceOrder != null" >
+        resource_order = #{record.resourceOrder,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createtor != null" >
+        createtor = #{record.createtor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemId != null" >
+        system_id = #{record.systemId,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qx_resource
+    set pk_resource = #{record.pkResource,jdbcType=CHAR},
+      resource_name = #{record.resourceName,jdbcType=VARCHAR},
+      resource_code = #{record.resourceCode,jdbcType=VARCHAR},
+      resource_type = #{record.resourceType,jdbcType=CHAR},
+      resource_status = #{record.resourceStatus,jdbcType=CHAR},
+      resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      resource_parent_id = #{record.resourceParentId,jdbcType=CHAR},
+      resource_order = #{record.resourceOrder,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      createtor = #{record.createtor,jdbcType=VARCHAR},
+      system_id = #{record.systemId,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ele_cloud.fp5i.security.resource.bean.Resource" >
+    update qx_resource
+    <set >
+      <if test="resourceName != null" >
+        resource_name = #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceCode != null" >
+        resource_code = #{resourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        resource_type = #{resourceType,jdbcType=CHAR},
+      </if>
+      <if test="resourceStatus != null" >
+        resource_status = #{resourceStatus,jdbcType=CHAR},
+      </if>
+      <if test="resourceUrl != null" >
+        resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceParentId != null" >
+        resource_parent_id = #{resourceParentId,jdbcType=CHAR},
+      </if>
+      <if test="resourceOrder != null" >
+        resource_order = #{resourceOrder,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtor != null" >
+        createtor = #{createtor,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null" >
+        system_id = #{systemId,jdbcType=CHAR},
+      </if>
+    </set>
+    where pk_resource = #{pkResource,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ele_cloud.fp5i.security.resource.bean.Resource" >
+    update qx_resource
+    set resource_name = #{resourceName,jdbcType=VARCHAR},
+      resource_code = #{resourceCode,jdbcType=VARCHAR},
+      resource_type = #{resourceType,jdbcType=CHAR},
+      resource_status = #{resourceStatus,jdbcType=CHAR},
+      resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      resource_parent_id = #{resourceParentId,jdbcType=CHAR},
+      resource_order = #{resourceOrder,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      createtor = #{createtor,jdbcType=VARCHAR},
+      system_id = #{systemId,jdbcType=CHAR}
+    where pk_resource = #{pkResource,jdbcType=CHAR}
+  </update>
+</mapper>
